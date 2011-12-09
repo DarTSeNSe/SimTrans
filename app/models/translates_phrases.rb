@@ -1,5 +1,6 @@
 class TranslatesPhrases < ActiveRecord::Base
-  attr_accessible :translate_id, :phrase_id
+
+  attr_accessible :translate_id
 
   belongs_to :phrase
   belongs_to :translate

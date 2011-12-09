@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111209124823) do
+ActiveRecord::Schema.define(:version => 20111209144304) do
+
+  create_table "languages", :force => true do |t|
+    t.string   "language"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "phrases", :force => true do |t|
     t.string   "phrase"
@@ -30,9 +36,20 @@ ActiveRecord::Schema.define(:version => 20111209124823) do
     t.datetime "updated_at"
   end
 
-  create_table "translates_phrases", :id => false, :force => true do |t|
-    t.integer  "phrase_id"
+  create_table "translates_languages", :id => false, :force => true do |t|
+    t.integer  "language_id"
     t.integer  "translate_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "translates_languages", ["language_id", "translate_id"], :name => "index_translates_languages_on_language_id_and_translate_id", :unique => true
+  add_index "translates_languages", ["language_id"], :name => "index_translates_languages_on_language_id"
+  add_index "translates_languages", ["translate_id"], :name => "index_translates_languages_on_translate_id"
+
+  create_table "translates_phrases", :id => false, :force => true do |t|
+    t.integer  "translate_id"
+    t.integer  "phrase_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
