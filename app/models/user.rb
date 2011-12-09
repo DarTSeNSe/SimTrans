@@ -1,8 +1,12 @@
 class User < ActiveRecord::Base
+
   attr_accessor :password
   attr_accessible :name, :email, :password, :password_confirmation
 
   has_many :phrases, :dependent => :destroy
+  has_many :users_languages, :class_name =>  "UsersLanguages",
+                             :dependent => :destroy
+  has_one :native
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 

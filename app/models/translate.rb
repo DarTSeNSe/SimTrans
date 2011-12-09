@@ -4,6 +4,8 @@ class Translate < ActiveRecord::Base
   belongs_to :phrase
   belongs_to :translates_phrases, :foreign_key => "phrase_id",
                                   :dependent => :destroy
+  has_one    :language
+
 
   validates :translate,  :presence   => true,
                          :length     => { :maximum => 200 },
