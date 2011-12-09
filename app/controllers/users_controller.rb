@@ -1,12 +1,9 @@
 class UsersController < ApplicationController
-before_filter :authenticate, :only => [:edit, :update]
-before_filter :correct_user, :only => [:edit, :update]
-before_filter :authenticate, :only => [:index, :edit, :update]
+  before_filter :authenticate, :only => [:index, :edit, :update, :destroy]
+  before_filter :correct_user, :only => [:edit, :update]
+  before_filter :admin_user,   :only => :destroy
+  before_filter :signedin, :only => [:new, :create]
 
-  def index
-    @title = "All users"
-    @users = User.all
-  end
 
   def show
     @user = User.find(params[:id])
@@ -19,15 +16,14 @@ before_filter :authenticate, :only => [:index, :edit, :update]
   end
 
   def create
-    user = User.authenticate(params[:session][:email],
-                             params[:session][:password])
-    if user.nil?
-      flash.now[:error] = "Invalid email/password combination."
-      @title = "Sign in"
-      render 'new'
+    @user = User.new(params[:user])
+    if @user.save
+      sign_in @user
+      flash[:success] = "Welcome to the SimTrans!"
+      redirect_to @user
     else
-      sign_in user
-      redirect_back_or user
+      @title = "Sign up"
+      render 'new'
     end
   end
 
@@ -51,6 +47,12 @@ before_filter :authenticate, :only => [:index, :edit, :update]
     @users = User.paginate(:page => params[:page])
   end
 
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User destroyed."
+    redirect_to users_path
+  end
+
   private
 
     def authenticate
@@ -61,5 +63,14 @@ before_filter :authenticate, :only => [:index, :edit, :update]
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
     end
+
+    def admin_user
+      redirect_to(root_path) unless current_user.admin?
+    end
+
+    def signedin
+      redirect_to(root_path) if signed_in?
+    end
+
 
 end
