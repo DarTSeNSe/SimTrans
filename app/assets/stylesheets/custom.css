@@ -1,18 +1,18 @@
 .container {
-  width: 710px;
+  width: 1024px;
 }
 
 body {
-  background: #cccccc;
+  background: #ccccff;
 }
 
 header {
-  padding-top: 40px;
+  padding-top: 80px;
 }
 
 header img {
   padding: 1em;
-  background: #fff;
+  background: #ffff99;
 }
 
 section {
@@ -49,7 +49,7 @@ nav {
 }
 
 nav {
-  background-color: white;
+  background-color: #ffff99;
   padding: 0 0.7em;
   white-space: nowrap;
 }
@@ -128,7 +128,7 @@ td.sidebar {
   width: 30%;
   padding: 1em;
   vertical-align: top;
-  background: #ffcccc;
+  background: #ffccff;
 }
 
 .profile img.gravatar {

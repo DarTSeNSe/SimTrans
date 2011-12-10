@@ -8,6 +8,7 @@ def create
       flash[:success] = "Phrase created!"
       redirect_to root_path
     else
+      @feed_items = []
       render 'pages/home'
     end
   end

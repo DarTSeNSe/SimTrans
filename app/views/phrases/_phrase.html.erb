@@ -1,0 +1,16 @@
+<tr>
+  <td class="phrase">
+    <span class="content"><%= phrase.phrase %></span>
+    <span class="content"><%= phrase.tag %></span>
+    <span class="timestamp">
+      Posted <%= time_ago_in_words(phrase.created_at) %> ago.
+    </span>
+  </td>
+  <% if current_user?(phrase.user) %>
+  <td>
+    <%= link_to "delete", phrase, :method => :delete,
+                                  :confirm => "Are You sure?",
+                                  :title => phrase.phrase %>
+  </td>
+  <% end %>
+</tr>

@@ -5,12 +5,7 @@
         <%= gravatar_for @user %>
         <%= @user.name %>
       </h1>
-      <% unless @user.phrases.empty? %>
-        <table class="phrases" summary="User phrases">
-          <%= render @phrases %>
-        </table>
-        <%= will_paginate @phrases %>
-      <% end %>
+
     </td>
     <td class="sidebar round">
       <strong>Name</strong> <%= @user.name %><br />
