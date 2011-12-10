@@ -16,4 +16,6 @@ class Phrase < ActiveRecord::Base
                       :length     => { :maximum => 16 }
   validates :user_id, :presence => true
   validates :language_id, :presence => true
+
+  default_scope :order => 'phrase.created_at DESC'
 end
